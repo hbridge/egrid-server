@@ -1,4 +1,6 @@
 import os
+import re
+
 """
 Django settings for egridserver project.
 
@@ -38,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
     'server'
 ]
 
@@ -74,11 +77,17 @@ WSGI_APPLICATION = 'egridserver.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+database_url = os.getenv('DATABASE_URL')
+user, password, host, port = re.match(r'\w+://(\w+):(.*)@(\w+):(\d+)',database_url).groups()
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'postgres',
+        'USER': user,
+        'PASSWORD': password,
+        'HOST': host,
+        'PORT': port,
     }
 }
 
