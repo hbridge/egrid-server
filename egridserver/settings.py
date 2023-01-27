@@ -1,5 +1,5 @@
 import os
-import re
+import dj_database_url
 
 """
 Django settings for egridserver project.
@@ -79,20 +79,20 @@ WSGI_APPLICATION = 'egridserver.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-database_url = os.getenv('DATABASE_URL')
-user, password, host, port = re.match(r'\w+://(\w+):(.*)@(\w+):(\d+)',database_url).groups()
+if os.getenv('DATABASE_URL') is not None:
+    # we need to check for the env variable because it's not there
+    # # during the docker image build and manage.py collectstatic crashes otherwise
+    database_dict = dj_database_url.parse(os.getenv('DATABASE_URL'))
+    database_dict['NAME'] = database_dict['USER'] # default
+else:
+    database_dict = {}
+
+# override engine because it's not configurable in fly.io
+database_dict['ENGINE'] = 'django.contrib.gis.db.backends.postgis' 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'postgres',
-        'USER': user,
-        'PASSWORD': password,
-        'HOST': host,
-        'PORT': port,
-    }
+    'default': database_dict
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -129,6 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

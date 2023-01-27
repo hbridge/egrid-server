@@ -5,6 +5,10 @@ FROM python:${PYTHON_VERSION}
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+# Setup GDAL
+RUN apt-get update &&\
+    apt-get install -y binutils libproj-dev gdal-bin python-gdal python3-gdal
+
 RUN mkdir -p /code
 
 WORKDIR /code
@@ -18,10 +22,10 @@ RUN set -ex && \
 
 COPY . /code/
 
-# RUN python manage.py collectstatic --noinput
+RUN python manage.py collectstatic --noinput
 
 # run the script to populate the database
-RUN python manage.py runscript load
+# RUN python manage.py runscript load
 
 EXPOSE 8000
 
