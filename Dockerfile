@@ -20,6 +20,9 @@ COPY . /code/
 
 # RUN python manage.py collectstatic --noinput
 
+# run the script to populate the database
+RUN python manage.py runscript load
+
 EXPOSE 8000
 
 # replace demo.wsgi with <project_name>.wsgi
