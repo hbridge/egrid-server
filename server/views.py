@@ -8,7 +8,19 @@ def homePageView(request):
   return HttpResponse("Hello world!")
 
 
-class EGridPlantViewSet(viewsets.ModelViewSet):
+DEFAULT_DISTANCE = 10
+
+class EGridPlantViewSet(viewsets.ReadOnlyModelViewSet):
+
   queryset = EGridPlant.objects.all().order_by('pid')
   serializer_class = EGridPlantSerializer
-  
+
+  def get_queryset(self):
+    lat = self.request.query_params.get('lat')
+    lng = self.request.query_params.get('lng')
+    if lat == None or lng == None:
+      return EGridPlant.objects.all().order_by('pid')
+
+    dist = DEFAULT_DISTANCE or self.request.query_params.get('dist')
+
+    return EGridPlant.plants_near(float(lat), float(lng), dist)
