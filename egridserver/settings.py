@@ -83,7 +83,8 @@ if os.getenv('DATABASE_URL') is not None:
     # we need to check for the env variable because it's not there
     # # during the docker image build and manage.py collectstatic crashes otherwise
     database_dict = dj_database_url.parse(os.getenv('DATABASE_URL'))
-    database_dict['NAME'] = database_dict['USER'] # default
+    if 'NAME' not in database_dict or database_dict['NAME'] == "":
+        database_dict['NAME'] = database_dict['USER'] # default for pg databases
 else:
     database_dict = {}
 
