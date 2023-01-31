@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='egridplant',
             name='capfac',
-            field=models.DecimalField(decimal_places=4, default=0.0, max_digits=5, verbose_name='Plant capacity factor (annual production / nameplate)'),
+            field=models.DecimalField(decimal_places=4, null=True, max_digits=5, verbose_name='Plant capacity factor (annual production / nameplate)'),
         ),
         migrations.AddField(
             model_name='egridplant',
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='egridplant',
-            name='numunit',
+            name='numunt',
             field=models.PositiveSmallIntegerField(null=True, verbose_name='Number of units'),
         ),
         migrations.AddField(
@@ -97,7 +97,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='egridplant',
-            name='porname',
+            name='oprname',
             field=models.CharField(blank=True, max_length=50, verbose_name='Plant transmission or distribution system owner'),
         ),
         migrations.AddField(
