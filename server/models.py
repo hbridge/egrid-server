@@ -61,6 +61,8 @@ class EGridPlant(models.Model):
 
   pid = models.IntegerField('Plant ID EGrid 2020', primary_key=True)
   pname = models.CharField('Plant Name', max_length=128)
+  lat = models.FloatField('Latitude', null=True)
+  lon = models.FloatField('Longitude', null=True)
   location = models.PointField()
   pstatabb = models.CharField('Plant state abbreviation', max_length=2, blank=True)
   oprname = models.CharField('Plant transmission or distribution system owner', max_length=50, blank=True)
