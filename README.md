@@ -6,18 +6,18 @@ Supports searching by Geolocation (latitude / longitude) via GeoDjango / PostGIS
 
 Currently using 2020 data, new 2021 data was just released and will be supported soon
 
-# Usage
+## Usage
 
 1. `/api/plants` serves up a paginated list of all the plants in the database
 1. `/api/plants/?lat=LAT&lng=LNG&rad=DIST` the plants endpoint supports query parameters for finding all plants within a radius of a latlong point
 
-# Building
+## Building
 
 1. `pip install -r requirements.txt`
 
 This app was built/tested with Python 3.11.1
 
-# Running the server
+## Running the server
 
 This app was built to deploy to [Fly.io](https://fly.io/)
 
