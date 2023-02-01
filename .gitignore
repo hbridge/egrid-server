@@ -3,3 +3,4 @@ lib/
 __pycache__
 pyvenv.cfg
 .sqllite3
+.DS_Store
