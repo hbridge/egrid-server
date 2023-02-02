@@ -1,6 +1,7 @@
 from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
-from django.contrib.gis.measure import Distance
+from django.contrib.gis.db.models.functions import Distance
+from django.contrib.gis.measure import D
 from django.utils.translation import gettext_lazy as _
 
 
@@ -90,6 +91,8 @@ class EGridPlant(models.Model):
   
   def plants_near(lat: float, lng: float, radius_miles: float):
     radius_center = Point(lng, lat)
-    return EGridPlant.objects.filter(
-      location__distance_lt=(radius_center, Distance(mi=radius_miles))
+    return (EGridPlant.objects
+      .filter(location__distance_lt=(radius_center, D(mi=radius_miles)))
+      .annotate(distance=Distance("location", radius_center))
+      .order_by("distance")
     )
