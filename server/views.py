@@ -21,6 +21,6 @@ class EGridPlantViewSet(viewsets.ReadOnlyModelViewSet):
     if lat == None or lng == None:
       return EGridPlant.objects.all().order_by('pid')
 
-    dist = DEFAULT_DISTANCE or self.request.query_params.get('dist')
+    dist = self.request.query_params.get('dist') or DEFAULT_DISTANCE
 
     return EGridPlant.plants_near(float(lat), float(lng), dist)
