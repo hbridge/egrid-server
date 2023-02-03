@@ -10,6 +10,9 @@ class Migration(migrations.Migration):
         ('server', '0002_egridplant_capfac_egridplant_coalflag_and_more'),
     ]
 
+    def reverse_pass(apps, schema_editor):
+        pass
+
     operations = [
-        migrations.RunPython(load.run)
+        migrations.RunPython(load.run, reverse_pass)
     ]

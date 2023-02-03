@@ -76,15 +76,14 @@ class EGridPlant(models.Model):
   capfac = models.DecimalField('Plant capacity factor (annual production / nameplate)', max_digits=5, decimal_places=4, null=True)
   namepcap = models.FloatField('Plant nameplate (theoretical) capacity (MW)', null=True)
   plngenan = models.IntegerField('Plant annual net generation (MWh)', null=True)
-  plngenoz = models.IntegerField('Plant annual NOx emissions (tons)', null=True)
-  plnoxan = models.IntegerField('Plant ozone season NOx emissions (tons)', null=True)
-  plnoxoz = models.IntegerField('Plant annual SO2 emissions (tons)', null=True)
-  plso2an = models.IntegerField('Plant annual CO2 emissions (tons)', null=True)
-  plco2an = models.IntegerField('Plant annual CH4 emissions (lbs)', null=True)
-  plch4an = models.IntegerField('Plant annual N2O emissions (lbs)', null=True)
-  pln2oan = models.IntegerField('Plant annual CO2 equivalent emissions (tons)', null=True)
-  plco2eqa = models.IntegerField('Plant annual Hg emissions (lbs)', null=True)
-  plhgan = models.IntegerField('Plant annual NOx total output emission rate (lb/MWh)', null=True)  
+  plnoxan = models.IntegerField('Plant annual NOx emissions (tons)', null=True)
+  plnoxoz = models.IntegerField('Plant ozone season NOx emissions (tons)', null=True)
+  plso2an = models.IntegerField('Plant annual SO2 emissions (tons)', null=True)
+  plco2an = models.IntegerField('Plant annual CO2 emissions (tons)', null=True)
+  plch4an = models.IntegerField('Plant annual CH4 emissions (lbs)', null=True)
+  pln2oan = models.IntegerField('Plant annual N2O emissions (lbs)', null=True)
+  plco2eqa = models.IntegerField('Plant annual CO2 equivalent emissions (tons)', null=True)
+  plhgan = models.IntegerField('Plant annual Hg emissions (lbs)', null=True)
 
   def __str__(self):
     return f'{self.pid}: {self.pname} {self.location}'
